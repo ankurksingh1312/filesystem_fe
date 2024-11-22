@@ -19,7 +19,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ fetchData, filesNfolders, set
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!name || !icon) return;
+    if (!name ) return;
     
     setIsSubmitting(true);
     
@@ -29,7 +29,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ fetchData, filesNfolders, set
 
 
       await axios.put(`http://localhost:5000/api/filesystem/673f308736c79d8949c1fc39`, {
-        filesNfolders: [...updatedItems, {name, icon, "type": "ITEM",children:[],isOpen:false }] 
+        filesNfolders: [...updatedItems, {name, icon:'fileicon', "type": "ITEM",children:[],isOpen:false }] 
       }); 
       
       socketService.emit('filesNfolderUpdated', {});
@@ -57,7 +57,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ fetchData, filesNfolders, set
           required
         />
       </FormField>
-      <FormField>
+      {/* <FormField>
         <TextField
           label="Icon"
           value={icon}
@@ -65,7 +65,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ fetchData, filesNfolders, set
           fullWidth
           required
         />
-      </FormField>
+      </FormField> */}
       <AddButton 
         type="submit" 
         disabled={isSubmitting || !name || !icon}

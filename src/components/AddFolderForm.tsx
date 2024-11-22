@@ -19,7 +19,7 @@ const AddFolderForm: React.FC<AddFolderFormProps> = ({ fetchData, filesNfolders,
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!name || !icon) return;
+    if (!name ) return;
     
     setIsSubmitting(true);
     
@@ -29,7 +29,7 @@ const AddFolderForm: React.FC<AddFolderFormProps> = ({ fetchData, filesNfolders,
 
 
       await axios.put(`http://localhost:5000/api/filesystem/673f308736c79d8949c1fc39`, {
-        filesNfolders: [...updatedItems, {name, icon, "type": "FOLDER",children:[],isOpen:false }] 
+        filesNfolders: [...updatedItems, {name, icon:'foldericon', "type": "FOLDER",children:[],isOpen:false }] 
       }); 
       
       socketService.emit('filesNfolderUpdated', {});
@@ -86,7 +86,7 @@ const AddFolderForm: React.FC<AddFolderFormProps> = ({ fetchData, filesNfolders,
           size="small"
         />
       </FormField>
-      <FormField>
+      {/* <FormField>
         <TextField
           label="Icon"
           value={icon}
@@ -94,7 +94,7 @@ const AddFolderForm: React.FC<AddFolderFormProps> = ({ fetchData, filesNfolders,
           fullWidth
           required
         />
-      </FormField>
+      </FormField> */}
       <AddButton 
         type="submit" 
         disabled={isSubmitting || !name.trim()}
