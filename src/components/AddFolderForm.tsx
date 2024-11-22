@@ -26,14 +26,14 @@ const AddFolderForm: React.FC<AddFolderFormProps> = ({ fetchData, filesNfolders,
     try {
 
       const updatedItems = Array.from(filesNfolders);
-
+      const newFileNfolders =  [...updatedItems, {name, icon:'foldericon', "type": "FOLDER",children:[],isOpen:false }] 
 
       await axios.put(`http://localhost:5000/api/filesystem/673f308736c79d8949c1fc39`, {
-        filesNfolders: [...updatedItems, {name, icon:'foldericon', "type": "FOLDER",children:[],isOpen:false }] 
+        filesNfolders: newFileNfolders
       }); 
       
-      socketService.emit('filesNfolderUpdated', {});
-      console.log(' #EMITED  filesNfolderUpdated', {});
+      socketService.emit('filesNfolderUpdated', {updatedItems:newFileNfolders});
+      console.log(' #EMITED created  filesNfolderUpdated', newFileNfolders);
 
       setName('');
       setIcon('');
@@ -46,32 +46,6 @@ const AddFolderForm: React.FC<AddFolderFormProps> = ({ fetchData, filesNfolders,
     }
   };
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-    
-  //   if (!name.trim()) return;
-    
-  //   setIsSubmitting(true);
-    
-  //   try {
-  //     const response = await axios.post('http://localhost:5000/api/folders', {
-  //       name: name.trim(),
-  //       order: 9999, // Default to end of list
-  //       isOpen: true // Default to open state
-  //     });
-      
-  //     socketService.emit('folderUpdated', response.data);
-  //     console.log(' #EMITED folderUpdated', response.data);
-      
-  //     // Reset form
-  //     setName('');
-  //     onAdd();
-  //   } catch (error) {
-  //     console.error('Error adding folder:', error);
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-  // };
 
   return (
     <FormContainer onSubmit={handleSubmit}>
