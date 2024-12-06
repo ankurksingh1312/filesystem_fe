@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { Typography } from '@mui/material';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
@@ -69,7 +69,11 @@ const DraggableItem: React.FC<{
   onMove ,
   onFolderToggle
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(item?.isOpen);
+
+  useEffect(()=>{
+    setIsOpen(item?.isOpen)
+  },[item?.isOpen])
 
   const toggleFolder = () => {
     if (item.type === 'FOLDER') {

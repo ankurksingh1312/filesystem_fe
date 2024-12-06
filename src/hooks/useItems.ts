@@ -25,14 +25,13 @@ export const useItems = () => {
 
   const handleFilesNfolderUpdate = useCallback((data: any) => {
     console.log('handleFilesNfolderUpdate called with:', data?.updatedItems);
-    // Make sure we're getting the expected data structure
     if (data?.updatedItems) {
       setFilesNfolders(prev => {
         console.log('Updating files and folders:', prev, data?.updatedItems);
-        // Add your update logic here
-        return data?.updatedItems; // modify this based on your data structure
+        return data?.updatedItems; 
       });
     }
+
 
   }, []);
 
